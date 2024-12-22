@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="stylePage.css" rel="stylesheet"/>
+    <script src="Home.js"></script>
+</head>
+<body>
+    <div>
+        <input class="UserNameLogin" type="text" placeholder="userName" />
+        <br />
+        <input class="PasswordLogin" type="text" placeholder="password" />
+        <br />
+        <button onclick="login()">login</button>
+        <button onclick="visibleRegister()">Register now</button>
+
+        <br />
+        <br />
+    </div>
+
+    <div class="unvisible">
+        <input  class="UserName" type="email" placeholder="UserName" />
+        <br /> 
+        <input  class="Password" onblur="checkPassword()" type="password" placeholder="Password" />
+        <progress class="Progress" value="0" max="4"></progress>
+        <br />
+        <input class="FirstName" type="text" placeholder="FirstName" />
+        <br />
+        <input class="LastName" type="text" placeholder="LastName" />
+        <br />
+        <button onclick="Register()">Register now</button>
+    </div>
+</body>
+</html>
