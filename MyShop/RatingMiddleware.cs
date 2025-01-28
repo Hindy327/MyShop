@@ -16,7 +16,7 @@ namespace MyShop
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext,IRatingService ratingservice)
+        public Task Invoke(HttpContext httpContext,IRatingService ratingservice)////
         {
             Rating rating = new()
             {   Host=httpContext.Request.Host.ToString(),
