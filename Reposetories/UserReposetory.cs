@@ -6,21 +6,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Reposetories
 {
     public class UserReposetory : IUserReposetory
     {
+        private readonly ILogger<UserReposetory> _logger;
         _327725412WebApiContext ConectDb;
-        public UserReposetory(_327725412WebApiContext _327725412WebApiContext)
+        public UserReposetory(_327725412WebApiContext _327725412WebApiContext, ILogger<UserReposetory> logger)
         {
             ConectDb = _327725412WebApiContext;
+            _logger = logger;
         }
 
         public async Task addUser(User user)
         {
+            //var newUser =
             await ConectDb.Users.AddAsync(user);
             await ConectDb.SaveChangesAsync();
+            //return newUser;
     
 
             //int numberOfUsers = System.IO.File.ReadLines("M:/web api/MyShop/MyShop/FileUser.txt").Count();
@@ -31,6 +36,7 @@ namespace Reposetories
 
         public  async Task<User> getUserToLogIn(string Email, string Password)
         {
+            _logger.LogCritical($"Login attempted with User, {Email} and password {Password} ");
             return await ConectDb.Users.FirstOrDefaultAsync(user => user.Email == Email && user.Password == Password);
             //using (StreamReader reader = System.IO.File.OpenText("M:/web api/MyShop/MyShop/FileUser.txt"))
             //{

@@ -39,7 +39,7 @@ namespace MyShop.Controllers
 
         // POST api/<OrderController>
         [HttpPost]
-        public async Task Post(OrderPostDTO OrderPostDTO)
+        public async Task Post([FromBody] OrderPostDTO OrderPostDTO)
         {
             Order order = mapper.Map<OrderPostDTO,Order>(OrderPostDTO);
             await orderService.CreateOrder(order);
