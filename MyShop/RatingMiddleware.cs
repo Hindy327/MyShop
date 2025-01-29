@@ -16,14 +16,14 @@ namespace MyShop
             _next = next;
         }
 
-        public Task Invoke(HttpContext httpContext,IRatingService ratingservice)////
+        public Task Invoke(HttpContext httpContext,IRatingService ratingservice)
         {
             Rating rating = new()
             {   Host=httpContext.Request.Host.ToString(),
-                Method = httpContext.Request.Method,
+                Method = httpContext.Request.Method.ToString(),
                 Path=httpContext.Request.Path.ToString(),
-                Referer=httpContext.Request.Headers.Referer,
-                UserAgent=httpContext.Request.Headers.UserAgent,
+                Referer=httpContext.Request.Headers.Referer.ToString(),
+                UserAgent=httpContext.Request.Headers.UserAgent.ToString(),
                 RecordDate=DateTime.Now
             };
             ratingservice.addRating(rating);
