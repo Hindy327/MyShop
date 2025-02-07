@@ -20,6 +20,11 @@ namespace Reposetories
             _logger = logger;
         }
 
+        public UserReposetory(_327725412WebApiContext _327725412WebApiContext)
+        {
+            ConectDb = _327725412WebApiContext;
+        }
+
         public async Task addUser(User user)
         {
             //var newUser =
@@ -36,7 +41,7 @@ namespace Reposetories
 
         public  async Task<User> getUserToLogIn(string Email, string Password)
         {
-            _logger.LogCritical($"Login attempted with User, {Email} and password {Password} ");
+            //_logger.LogCritical($"Login attempted with User, {Email} and password {Password} ");
             return await ConectDb.Users.FirstOrDefaultAsync(user => user.Email == Email && user.Password == Password);
             //using (StreamReader reader = System.IO.File.OpenText("M:/web api/MyShop/MyShop/FileUser.txt"))
             //{
