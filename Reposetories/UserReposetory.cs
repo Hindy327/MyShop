@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Reflection.Metadata;
 
 namespace Reposetories
 {
@@ -57,6 +58,10 @@ namespace Reposetories
             //}
             //return null;
         }
+        //public async Task<User> getUserById(int id)
+        //{
+        //    return await ConectDb.Users.FirstOrDefaultAsync(user => user.UserId == id);
+        //}
         public async Task updateUser(int id, User Details)
         {
             Details.UserId = id;

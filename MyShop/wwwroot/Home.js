@@ -28,7 +28,7 @@ const login = async () => {
     const login = {
         Email: document.querySelector(".UserNameLogin").value,
         Password: document.querySelector(".PasswordLogin").value
-     
+
     }
     try {
         const response = await fetch(`api/users/login/?Email=${login.Email}&Password=${login.Password}`, {
@@ -36,7 +36,7 @@ const login = async () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-           
+
             query: { Email: login.Email, Password :login.Password}
         });
         const postData = await response.json();
@@ -50,6 +50,7 @@ const login = async () => {
     }
 
 }
+
 
 
 const Register = async() => {
