@@ -59,21 +59,27 @@ const showProduct = async (product,quantity) => {
     cloneProduct.querySelector(".expandoHeight").addEventListener('click', () => { deleteProduct(product) })
     document.getElementById("items").appendChild(cloneProduct)
 }
-const deleteProduct = (product) => {
-    let cartArray = JSON.parse(sessionStorage.getItem('Cart'))
-    cartArray.map((item) => {
-        if (item.productId == product.id) {
-            item.Quantity = item.Quantity - 1
-        }
-
-    })
-    sessionStorage.setItem('Cart', JSON.stringify(cartArray))
-    document.getElementById("itemsInCart").innerHTML = ''
-    getCart()
-    let amount = JSON.parse(sessionStorage.getItem("amount"))
-    sessionStorage.setItem("amount", JSON.stringify(amount - 1))
-
-
+const deleteProduct = async (product) => {
+    let cart = JSON.parse(sessionStorage.getItem("Cart"))
+    let arr = cart.filter((item) => product.id == item.productId)
+    console.log(arr)
+    if (arr[0].quantity == 1) {
+        cart = cart.filter((item) => item.productId != product.id)
+    }
+    else {
+        cart = cart.map((item) => {
+            if (product.id == item.productId) {
+                item.quantity = item.quantity - 1;
+            }
+            return item
+        })
+        console.log("ddddd" + cart)
+    }
+    sessionStorage.setItem("Cart", JSON.stringify(cart))
+    document.getElementById("totalAmount").innerHTML = 0;
+    document.getElementById("itemCount").innerHTML = 0
+    document.getElementById("items").innerHTML = ''
+    window.location.href = "ShoppingBag.html"
 }
 
     //let cartArray = JSON.parse(sessionStorage.getItem("Cart"))
@@ -91,26 +97,41 @@ const deleteProduct = (product) => {
 
 }
 const orderPostCart = async (orderItems) => {
-    const orderPost = orderPostObj(orderItems)
-    try {
-        const response = await fetch("https://localhost:7141/api/order", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(orderPost)
-        })
-        const Data = await response;
-        console.log('postData:', Data)
+    let a = JSON.parse(sessionStorage.getItem("amount"))
+    if (!sessionStorage.getItem('user')) {
+        window.location.href = "Home.html"
     }
-    catch (error) {
-        alert("not valid")
+    
+    else if ( a== 0) {
+        alert("your cart is empty")
     }
+    else{
+        const orderPost = orderPostObj(orderItems)
+        try {
+            const response = await fetch("https://localhost:7141/api/order/", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderPost)
+            })
+            const Data = await response.json();
+            alert("order number: " + Data.orderId + "aded succesfully")
+            console.log('postData:', Data)
+            sessionStorage.setItem("Cart", JSON.stringify([]));
+            sessionStorage.setItem("amount", JSON.stringify(0));
+            window.location.href = "ShoppingBag.html"
+        }
+        catch (error) {
+            alert("not valid")
+        }
+    }
+    
 }
 const orderPostObj = (orderItems) => {
     const order = {
         UserId: JSON.parse(sessionStorage.getItem('user')),
-        OrderDate:"15-01-2025",
+        OrderDate:"2025-01-01",
         OrderSum: JSON.parse( document.querySelector("#totalAmount").innerHTML),
         OrderItems: orderItems
     }

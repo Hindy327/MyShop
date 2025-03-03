@@ -14,15 +14,16 @@
         <br />
         <button onclick="login()">login</button>
         <button onclick="visibleRegister()">Register now</button>
+        <button onclick="visibleUpdate()">Update details</button>
 
         <br />
         <br />
     </div>
 
     <div class="unvisible">
-        <input  class="UserName" type="email" placeholder="UserName" />
-        <br /> 
-        <input  class="Password" onblur="checkPassword()" type="password" placeholder="Password" />
+        <input class="UserName" type="email" placeholder="UserName" />
+        <br />
+        <input class="Password" onblur="checkPassword()" type="password" placeholder="Password" />
         <progress class="Progress" value="0" max="4"></progress>
         <br />
         <input class="FirstName" type="text" placeholder="FirstName" />
@@ -30,6 +31,20 @@
         <input class="LastName" type="text" placeholder="LastName" />
         <br />
         <button onclick="Register()">Register now</button>
+    </div>
+
+
+    <div class="unvisible1">
+    <input class="UserName1" type="email" placeholder="UserName"/>
+    <br />
+    <input class="Password1" onblur="checkPassword()" type="password" placeholder="Password"/>
+    <progress class="Progress" value="0" max="4"></progress>
+    <br />
+    <input class="FirstName1" type="text" placeholder="FirstName" />
+    <br />
+    <input class="LastName1" type="text" placeholder="LastName" />
+    <br />
+    <button onclick="Update()">Update now</button>
     </div>
 </body>
 </html>

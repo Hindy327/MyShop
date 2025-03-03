@@ -9,9 +9,9 @@ using MyShop;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+//"Server=SRV2\\PUPILS;Database=327725412_webApi;Trusted_Connection=True;TrustServerCertificate=True
 // Add services to the container.
-
+//builder.Host.UseNLog();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<_327725412WebApiContext>(options => options.UseSqlServer("Server=SRV2\\PUPILS;Database=327725412_webApi;Trusted_Connection=True;TrustServerCertificate=True"));
 builder.Services.AddScoped<IUserService,UserService>();
@@ -27,7 +27,7 @@ builder.Services.AddScoped<IRatingService, RatingService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Host.UseNLog();
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {

@@ -79,12 +79,13 @@ namespace MyShop.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public async Task Put( int id, [FromBody] UserRegisterDTO Details)
+        public async Task Put(int id, [FromBody] UserRegisterDTO Details)
         {
             User user = mapper.Map<UserRegisterDTO, User>(Details);
             await userService.updateUser(id, user);
 
         }
+
         [HttpPost]
         [Route("password")]
         public int PostPassword([FromBody] string Password)
@@ -93,9 +94,15 @@ namespace MyShop.Controllers
 
 
         }
+        [HttpGet("{id}")]
+        public async Task<User> getUserById(int id)
+        {
+            User u= await userService.getUserById(id);
+            return u;
+        }
+        [HttpDelete("{id}")]
 
         // DELETE api/<UsersController>/5
-        [HttpDelete("{id}")]
         public void Delete(int id)
         {
         }

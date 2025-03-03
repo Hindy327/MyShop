@@ -3,6 +3,14 @@ const visibleRegister = () => {
     const registerDiv = document.querySelector(".unvisible")
     registerDiv.classList.remove("unvisible")
 }
+const visibleUpdate = () => {
+    const id = sessionStorage.getItem('user')
+    if (id == null) {
+        alert("to update your details first log in")
+    }
+    else { 
+    window.location.href="UserDetails.html"}
+}
 
 const getDetailes = () => {
     const user = {
@@ -20,7 +28,6 @@ const UpDateDetailes = () => {
         Password: document.querySelector(".PasswordUpDate").value,
         FirstName: document.querySelector(".FirstNameUpDate").value,
         LastName: document.querySelector(".LastNameUpDate").value
-
     }
     return user
 }
@@ -42,7 +49,10 @@ const login = async () => {
         const postData = await response.json();
         console.log('postData:', postData.userId)
         sessionStorage.setItem('user', postData.userId)
-        window.location.href="Products.html"
+        if (JSON.parse(sessionStorage.getItem('Cart'))==[])
+            window.location.href = "Products.html"
+        else
+            window.location.href = "ShoppingBag.html"
 
     }
     catch (error) {
@@ -76,25 +86,24 @@ const Register = async() => {
     }
 }
 const Update = async () => {
-    const id =sessionStorage.getItem('user')
-    const Detailes = UpDateDetailes();
-    try {
-        //const response = await fetch("https://localhost:7141/api/users/id", {
-        const response = await fetch(`https://localhost:7141/api/users/${id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: await JSON.stringify(Detailes)
-        });
-        //const postData = await response.json();
-        //console.log('postData:', postData)
+    const id = sessionStorage.getItem('user')
+        const Detailes = UpDateDetailes();
+        try {
+            const response = await fetch(`https://localhost:7141/api/users/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: await JSON.stringify(Detailes)
+            });
+            alert("Updated details")
+            window.location.href="Products.html"
+        }
+        catch (error) {
+            alert("not valed")
+        }
+    
 
-
-    }
-    catch (error) {
-        alert("not valed")
-    }
 }
     const checkPassword = async() => {
         const password = document.querySelector(".Password").value;
@@ -118,7 +127,8 @@ const Update = async () => {
         }
 
 
-    }
+}
+
  
         
     

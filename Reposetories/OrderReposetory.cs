@@ -16,10 +16,12 @@ namespace Reposetories
         {
             ConectDb = _327725412WebApiContext;
         }
-        public async Task CreateOrder(Order order)
+        public async Task<Order> CreateOrder(Order order)
         {
-            await ConectDb.Orders.AddAsync(order);
+            var a = await ConectDb.Orders.AddAsync(order);
             await ConectDb.SaveChangesAsync();
+            order.OrderId=a.Entity.OrderId;
+            return order;
         }
         public async Task<Order> GetOrderById(int id)
         {

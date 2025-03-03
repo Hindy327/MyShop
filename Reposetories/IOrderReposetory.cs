@@ -4,7 +4,7 @@ namespace Reposetories
 {
     public interface IOrderReposetory
     {
-        Task CreateOrder(Order order);
+        public Task<Order> CreateOrder(Order order);
         Task<Order> GetOrderById(int id);
     }
 }

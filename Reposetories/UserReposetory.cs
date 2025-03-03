@@ -39,11 +39,36 @@ namespace Reposetories
             //string userJson = JsonSerializer.Serialize(user);
             //System.IO.File.AppendAllText("M:/web api/MyShop/MyShop/FileUser.txt", userJson + Environment.NewLine);
         }
+  
+
+
+
+
+
 
         public  async Task<User> getUserToLogIn(string Email, string Password)
         {
             //_logger.LogCritical($"Login attempted with User, {Email} and password {Password} ");
             return await ConectDb.Users.FirstOrDefaultAsync(user => user.Email == Email && user.Password == Password);
+            //using (StreamReader reader = System.IO.File.OpenText("M:/web api/MyShop/MyShop/FileUser.txt"))
+            //{
+            //    string? currentUserInFile;
+            //    while ((currentUserInFile = reader.ReadLine()) != null)
+            //    {
+            //        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
+            //        if (user.Email == UserName && user.Password == Password)
+            //            return user;
+
+
+            //    }
+            //}
+            //return null;
+        }
+        public async Task<User> getUserById(int id)
+        {
+            //_logger.LogCritical($"Login attempted with User, {Email} and password {Password} ");
+            return await ConectDb.Users.FirstOrDefaultAsync(u => u.UserId==id);
+            
             //using (StreamReader reader = System.IO.File.OpenText("M:/web api/MyShop/MyShop/FileUser.txt"))
             //{
             //    string? currentUserInFile;
@@ -65,7 +90,7 @@ namespace Reposetories
         public async Task updateUser(int id, User Details)
         {
             Details.UserId = id;
-            ConectDb.Update(Details);
+            ConectDb.Users.Update(Details);
             await ConectDb.SaveChangesAsync();
             //string textToReplace = string.Empty;
             //using (StreamReader reader = System.IO.File.OpenText("M:/web api/MyShop/MyShop/FileUser.txt"))

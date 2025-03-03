@@ -22,7 +22,10 @@ namespace Services
         {
            await  userReposetory.addUser(user);
         }
-
+        public async Task<User> getUserById(int id)
+        {
+           return await userReposetory.getUserById(id);
+        }
         public async Task<User> getUserToLogIn(string Email, string Password)
         {
             return await userReposetory.getUserToLogIn(Email, Password);

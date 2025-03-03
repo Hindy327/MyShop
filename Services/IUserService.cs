@@ -8,5 +8,6 @@ namespace Services
         Task<User> getUserToLogIn(string Email, string Password);
         int PostPassword(string Password);
         Task updateUser(int id, User Details);
+        Task<User> getUserById(int id);
     }
 }
