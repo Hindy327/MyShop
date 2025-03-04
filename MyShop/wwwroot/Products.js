@@ -159,7 +159,7 @@ const selectedCategories =async(id) => {
     GetProductList()
     
 
- 
+  
 }
 //const clearAll = async () => {
 //    //document.querySelector("#nameSearch").innerText = ""
