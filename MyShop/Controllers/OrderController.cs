@@ -19,14 +19,6 @@ namespace MyShop.Controllers
             this.orderService = orderService;
             this.mapper = mapper;
         }
-
-        // GET: api/<OrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
         public async Task<OrderDTO> Get(int id)
@@ -48,18 +40,6 @@ namespace MyShop.Controllers
                 return CreatedAtAction(nameof(Get), new { id = newOrder.OrderId }, order);
             return BadRequest();
 
-        }
-
-        // PUT api/<OrderController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<OrderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

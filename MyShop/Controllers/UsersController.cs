@@ -21,51 +21,19 @@ namespace MyShop.Controllers
             userService = _userService;
             this.mapper = mapper;
         }
-        //UserService userService = new UserService();
-        // GET: api/<UsersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "shabat", "shalom" };
-        }
-
-        // GET api/<UsersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<UsersController>
         [HttpPost]
-        public async Task<ActionResult<User>> Post([FromBody] UserRegisterDTO userDTO)//בלי הזמנות
+        public async Task<ActionResult<User>> Post([FromBody] UserRegisterDTO userDTO)
         {
             User user = mapper.Map<UserRegisterDTO, User>(userDTO);
+            User u = await userService.getUserToLogIn(user.Email, user.Password);
+            if (u != null)
+            {
+                return Conflict("Duplicate user");
+            }
             await userService.addUser(user);
-            return CreatedAtAction(nameof(Get), new { id = user.UserId }, user);
-
+            return CreatedAtAction(nameof(getUserById), new { id = user.UserId }, user);
         }
-        //[HttpPost]
-        //[Route("login")]
-        //public ActionResult PostLogin([FromBody] string userName, string password)
-        //{
-        //    using (StreamReader reader = System.IO.File.OpenText("M:/web api/MyShop/MyShop/FileUser.txt"))
-        //    {
-        //        string? currentUserInFile;
-        //        while ((currentUserInFile = reader.ReadLine()) != null)
-        //        {
-        //            User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-        //            if (user.UserName == userName && user.Password == password)
-        //                return Ok(user);
 
-
-        //        }
-        //    }
-        //    return NoContent();
-
-
-
-        //}
         [HttpPost]
         [Route("login")]
         public async Task<ActionResult<User>> PostLogin([FromQuery] string Email, string Password)//רק id
@@ -83,7 +51,6 @@ namespace MyShop.Controllers
         {
             User user = mapper.Map<UserRegisterDTO, User>(Details);
             await userService.updateUser(id, user);
-
         }
 
         [HttpPost]
@@ -91,20 +58,12 @@ namespace MyShop.Controllers
         public int PostPassword([FromBody] string Password)
         {
            return userService.PostPassword(Password);
-
-
         }
         [HttpGet("{id}")]
         public async Task<User> getUserById(int id)
         {
             User u= await userService.getUserById(id);
             return u;
-        }
-        [HttpDelete("{id}")]
-
-        // DELETE api/<UsersController>/5
-        public void Delete(int id)
-        {
         }
     }
 }

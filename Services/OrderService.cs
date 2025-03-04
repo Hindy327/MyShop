@@ -28,7 +28,7 @@ namespace Services
             if (newOrder != order.OrderSum)
             {
                 order.OrderSum = newOrder;
-                _logger.LogCritical($"OrderSum{order.OrderSum} not valid ");
+                _logger.LogCritical($"User  try change the OrderSum of order");
 
             }
             return await orderReposetory.CreateOrder(order);

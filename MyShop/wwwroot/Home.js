@@ -78,7 +78,14 @@ const Register = async() => {
             },
             body: await JSON.stringify(user)
         });
-        alert(response)
+        const dataResponse = await response.json()
+        alert(dataResponse)
+        sessionStorage.setItem('user', dataResponse.userId)
+        
+        if (JSON.parse(sessionStorage.getItem('Cart')) == [])
+            window.location.href = "Products.html"
+        else
+            window.location.href = "ShoppingBag.html"
     }
     catch (error) {
         alert("not valed")

@@ -7,20 +7,24 @@ using System.Threading.Tasks;
 using Entities;
 using System.Text.Json;
 using Zxcvbn;
+using Microsoft.Extensions.Logging;
 
 namespace Services
 {
     public class UserService : IUserService
     {
         IUserReposetory userReposetory;
-        
-        public UserService(IUserReposetory _userReposetory)
+        private readonly ILogger<UserReposetory> _logger;
+
+        public UserService(IUserReposetory _userReposetory, ILogger<UserReposetory> _logger)
         {
             userReposetory = _userReposetory;
+            this._logger = _logger;
     }
-        public async  Task addUser(User user)
+        public async  Task<User> addUser(User user)
         {
-           await  userReposetory.addUser(user);
+          return await userReposetory.addUser(user);
+           
         }
         public async Task<User> getUserById(int id)
         {
@@ -28,7 +32,12 @@ namespace Services
         }
         public async Task<User> getUserToLogIn(string Email, string Password)
         {
-            return await userReposetory.getUserToLogIn(Email, Password);
+            var u= await userReposetory.getUserToLogIn(Email, Password);
+            if(u != null)
+            {
+                _logger.LogCritical($"Login attempted with User, {Email} and password {Password} ");
+            }
+            return u;
 
         }
         public async Task updateUser(int id, User Details)
@@ -42,6 +51,6 @@ namespace Services
             return result.Score;
 
         }
-
+       
     }
 }

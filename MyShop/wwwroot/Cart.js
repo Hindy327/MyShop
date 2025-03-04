@@ -131,32 +131,19 @@ const orderPostCart = async (orderItems) => {
 const orderPostObj = (orderItems) => {
     const order = {
         UserId: JSON.parse(sessionStorage.getItem('user')),
-        OrderDate:"2025-01-01",
-        OrderSum: JSON.parse( document.querySelector("#totalAmount").innerHTML),
+        OrderDate: generateDate(),
+        OrderSum: JSON.parse(document.querySelector("#totalAmount").innerHTML),
         OrderItems: orderItems
+    }
+
+    function generateDate() {
+        const currentDate = new Date().toISOString().split('T')[0];
+        return currentDate;
     }
     return order
 
 }
-const generateDate = () => {
 
-    Datedate = new DateTime(2005, 12, 12, 9, 0, 0);
-    Console.log(date);
-    //Console.WriteLine("Year = " + date.Year.ToString());
-    //Console.WriteLine("Month = " + date.Month.ToString());
-    //Console.WriteLine("Day = " + date.Day.ToString());
-    //Console.WriteLine("Hour = " + date.Hour.ToString());
-    //Console.WriteLine("Minute = " + date.Minute.ToString());
-    //Console.WriteLine("Second = " + date.Second.ToString());
-    //const date = new Date();
-    //let day = date.getDay();
-    //let month = date.getMonth() + 1;
-    //let year = date.getFullYear();
-    let currentDate = `${date.Year}-${date.Month}-${date.Day}`;
-    let hh = `${date.Year}-${date.Month}-${date.Day}`;
-    //let dt = new Date(year, month, day)
-    return currentDate
-}
 
      
 

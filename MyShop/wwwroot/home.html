@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <link href="stylePage.css" rel="stylesheet"/>
+    <!--<link href="stylePage.css" rel="stylesheet" />-->
+    <link href="Home.css" rel="stylesheet" />
+    <!--<link href="Home.css" rel="stylesheet" />-->
     <script src="Home.js"></script>
 </head>
 <body>
-    <div>
+    <div  dir="rtl">
         <input class="UserNameLogin" type="text" placeholder="userName" />
         <br />
         <input class="PasswordLogin" type="text" placeholder="password" />
@@ -32,19 +34,34 @@
         <br />
         <button onclick="Register()">Register now</button>
     </div>
-
-
-    <div class="unvisible1">
-    <input class="UserName1" type="email" placeholder="UserName"/>
-    <br />
-    <input class="Password1" onblur="checkPassword()" type="password" placeholder="Password"/>
-    <progress class="Progress" value="0" max="4"></progress>
-    <br />
-    <input class="FirstName1" type="text" placeholder="FirstName" />
-    <br />
-    <input class="LastName1" type="text" placeholder="LastName" />
-    <br />
-    <button onclick="Update()">Update now</button>
-    </div>
 </body>
 </html>
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>-->
+    <!--<style src="./Home.css"></style>-->
+    <!--<link href="Home.css" rel="stylesheet" />
+    <script src="Home.js"></script>
+</head>
+<body dir="rtl">
+    <div>
+        <input placeholder="הכנס מייל" type="email" class="emailLogin" /><br />
+        <input placeholder="הכנס סיסמא" type="password" class="passwordLogin" /><br />
+        <button onclick="NewLogin()">אישור</button>
+        <button onclick="visibleRegister()">משתמש חדש</button>
+        <button onclick="changeUserPage()">עדכון פרטי משתמש</button>
+    </div>
+    <div class="unvisible">
+        <input placeholder="הכנס שם" type="text" class="firstName" /><br />
+        <input placeholder="הכנס משפחה" type="text" class="lastName" /><br />
+        <input onblur="checkPassword()" placeholder="הכנס סיסמא" type="password" class="password" /><progress class="levelPassword" value="0" max="4"></progress><br />
+        <input placeholder="הכנס מייל" type="email" class="email" /><br />
+
+        <button onclick="newRegister()">אישור</button>
+
+    </div>
+
+</body>
+</html>-->

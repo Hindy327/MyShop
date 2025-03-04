@@ -4,6 +4,8 @@ using Services;
 using AutoMapper;
 using System.Collections.Generic;
 using DTO;
+using Microsoft.Extensions.Caching.Memory;
+using System.Reflection.Metadata.Ecma335;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,50 +17,25 @@ namespace MyShop.Controllers
     {
         ICategoryService categoryService;
         IMapper mapper;
-        public CategoryController(ICategoryService categoryService, IMapper mapper)
+        private readonly IMemoryCache memoryCache;
+        public CategoryController(ICategoryService categoryService, IMapper mapper, IMemoryCache memoryCache)
         {
             this.categoryService = categoryService;
             this.mapper = mapper;
+            this.memoryCache = memoryCache;
         }
 
         // GET: api/<CategoryController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
         [HttpGet]
-        public async Task<IEnumerable<CategoryDTO>> Get()
+        public async Task<ActionResult<IEnumerable<Category>>> Get()
         {
-            IEnumerable<Category> categories=await categoryService.GetCategories();
-            IEnumerable<CategoryDTO> CategoryDTO = mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categories);
-
-            return CategoryDTO;
-        }   
-
-        // GET api/<CategoryController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<CategoryController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<CategoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<CategoryController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            if (!memoryCache.TryGetValue("categories", out IEnumerable<Category> categories))
+            {
+                categories = await categoryService.GetCategories();
+                memoryCache.Set("categories", categories, TimeSpan.FromMinutes(2));
+            }
+            IEnumerable<CategoryDTO> categoryDTOList = mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDTO>>(categories);
+            return categoryDTOList != null ? Ok(categoryDTOList) : BadRequest();
         }
     }
 }

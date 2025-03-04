@@ -19,8 +19,6 @@ namespace Reposetories
         int rowAffected = 0;
         public async void addRating(Rating rating)
         {
-            //await ConectDb.Ratings.AddAsync(rating);
-            //await ConectDb.SaveChangesAsync();
             string query = "INSERT INTO RATING(HOST, METHOD,PATH, REFERER, USER_AGENT,Record_Date)" +
             "VALUES(@HOST, @METHOD, @PATH, @REFERER, @USER_AGENT,@Record_Date)";
 
@@ -34,16 +32,13 @@ namespace Reposetories
                 cmd.Parameters.Add("@REFERER", SqlDbType.NVarChar, 100).Value = rating.Referer;
                 cmd.Parameters.Add("@USER_AGENT", SqlDbType.NVarChar, int.MaxValue).Value = rating.UserAgent;
                 cmd.Parameters.Add("@Record_Date", SqlDbType.DateTime).Value = rating.RecordDate;
-                //cmd.Parameters.Add("@User_ID", SqlDbType.Int).Value = rating.UserId;
 
                 cn.Open();
                 rowAffected = await cmd.ExecuteNonQueryAsync();
                 cn.Close();
 
             }
-            //return rating;
 
-            //}
         }
 
         }

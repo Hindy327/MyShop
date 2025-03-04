@@ -95,7 +95,7 @@ const GetProductList =  async () => {
         showAllProducts(postData)
     }
     catch (error) {
-        alert("not valed")
+        alert("not valid")
     }
 }
 const productList = addEventListener("load", async () => {
@@ -161,5 +161,13 @@ const selectedCategories =async(id) => {
 
  
 }
+//const clearAll = async () => {
+//    //document.querySelector("#nameSearch").innerText = ""
+//    //document.querySelector("#minPrice").innerText = ""
+//    //document.querySelector("#maxPrice").innerText = ""
+//    //sessionStorage.setItem("categoryIds", JSON.stringify([]))
+//    GetProductList()
+//    //window.location.href="Products.html"
+//}
 
 

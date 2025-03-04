@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public record UserRegisterDTO(int? UserId,[Required,EmailAddress(ErrorMessage ="not valid email adress")] string? Email, [Required]string? Password, string? FirstName, string? LastName);
+    public record UserRegisterDTO(int? UserId,[Required,EmailAddress(ErrorMessage ="not valid email adress")] string? Email, [Required]string? Password, [Required] string? FirstName, [Required] string? LastName);
 }
