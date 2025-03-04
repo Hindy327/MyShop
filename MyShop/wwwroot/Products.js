@@ -159,7 +159,7 @@ const selectedCategories =async(id) => {
     GetProductList()
     
 
-    //change from Nechami
+  
 }
 
 
