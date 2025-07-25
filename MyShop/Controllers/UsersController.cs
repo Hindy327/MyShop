@@ -30,6 +30,10 @@ namespace MyShop.Controllers
             {
                 return Conflict("Duplicate user");
             }
+            // Generate salt and hash password
+            string salt = MyShop.SecurityHelper.GenerateSalt();
+            user.Salt = salt;
+            user.Password = MyShop.SecurityHelper.HashPassword(user.Password, salt);
             await userService.addUser(user);
             return CreatedAtAction(nameof(getUserById), new { id = user.UserId }, user);
         }

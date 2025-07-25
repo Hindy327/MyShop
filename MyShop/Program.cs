@@ -11,6 +11,11 @@ using System;
 
 var builder = WebApplication.CreateBuilder(args);
 string connectionString;
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379"; // Redis container address
+    options.InstanceName = "MyShop_";
+});
 
 
 //"Server=SRV2\\PUPILS;Database=327725412_webApi;Trusted_Connection=True;TrustServerCertificate=True
@@ -43,6 +48,21 @@ var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.
+// Add CSP headers middleware
+//app.Use(async (context, next) =>
+//{
+//    context.Response.Headers["Content-Security-Policy"] =
+//        "default-src 'self'; " +
+//        "script-src 'self'; " +
+//        "style-src 'self'; " +
+//        "img-src 'self'; " +
+//        "connect-src 'self'; " +
+//        "frame-src 'self'; " +
+//        "object-src 'none';";
+//    await next();
+//});
+
+
 app.UseRatingMiddleware();
 app.UseErrorHandlingMiddleware();
 

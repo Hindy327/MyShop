@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    ports:
+      - "6379:6379"
+    networks:
+      - myshop-network
+
+  myshop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: myshop-container
+    ports:
+      - "8080:80"
+      - "8443:443"
+    depends_on:
+      - redis
+    networks:
+      - myshop-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DOTNET_RUNNING_IN_CONTAINER=true
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+      - REDIS_CONNECTION=redis:6379
+
+networks:
+  myshop-network:
+    driver: bridge

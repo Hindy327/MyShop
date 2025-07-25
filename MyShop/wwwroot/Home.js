@@ -71,7 +71,7 @@ const Register = async() => {
     }
     else { 
     try {
-        const response = await fetch("https://localhost:7141/api/users", {
+        const response = await fetch("api/users", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ const Register = async() => {
             window.location.href = "ShoppingBag.html"
     }
     catch (error) {
-        alert("not valed")
+        alert("not valid")
     }
     }
 }
@@ -96,7 +96,7 @@ const Update = async () => {
     const id = sessionStorage.getItem('user')
         const Detailes = UpDateDetailes();
         try {
-            const response = await fetch(`https://localhost:7141/api/users/${id}`, {
+            const response = await fetch(`api/users/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

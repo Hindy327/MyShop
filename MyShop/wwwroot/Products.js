@@ -59,6 +59,9 @@ const addToCart = async(product) => {
 }
 
 const showAllProducts=(products) => {
+    // console.log("csp")
+    //  window.location.href = "https://translate.google.co.il/?hl=iw&sl=auto&tl=en&op=translate"
+    
     for (let i = 0; i < products.length; i++) {
         showOneProduct(products[i]);
     }
