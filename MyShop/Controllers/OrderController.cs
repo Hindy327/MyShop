@@ -3,6 +3,7 @@ using Services;
 using DTO;
 using Entities;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyShop.Controllers
@@ -20,6 +21,7 @@ namespace MyShop.Controllers
             this.mapper = mapper;
         }
         // GET api/<OrderController>/5
+        [Authorize] 
         [HttpGet("{id}")]
         public async Task<OrderDTO> Get(int id)
         {

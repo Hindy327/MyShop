@@ -1,5 +1,4 @@
-﻿
-const visibleRegister = () => {
+﻿const visibleRegister = () => {
     const registerDiv = document.querySelector(".unvisible")
     registerDiv.classList.remove("unvisible")
 }
@@ -47,8 +46,8 @@ const login = async () => {
             query: { Email: login.Email, Password :login.Password}
         });
         const postData = await response.json();
-        console.log('postData:', postData.userId)
-        sessionStorage.setItem('user', postData.userId)
+        console.log('postDataaaaaaa:', postData.user?.userId)
+        sessionStorage.setItem('user', postData.user?.userId)
         if (JSON.parse(sessionStorage.getItem('Cart'))==[])
             window.location.href = "Products.html"
         else
@@ -56,7 +55,7 @@ const login = async () => {
 
     }
     catch (error) {
-        alert("not valed")
+        alert("not valid")
     }
 
 }
@@ -136,11 +135,11 @@ const Update = async () => {
 
 }
 
- 
-        
-    
 
-    
+
+
+
+
 
 
 
